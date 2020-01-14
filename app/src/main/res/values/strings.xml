@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Rocket Launch Feed</string>
+    <string name="error_msg">Error calling Server</string>
+    <string name="no_internet">Internet not available!</string>
+
+    <string name="appbar_scrolling_view_behavior">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+
+</resources>
