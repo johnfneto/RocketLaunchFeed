@@ -1,6 +1,7 @@
 package com.johnfneto.rocketlaunchfeed
 
 import androidx.lifecycle.ViewModel
+import com.johnfneto.rocketlaunchfeed.models.LaunchDetailModel
 import com.johnfneto.rocketlaunchfeed.models.ResultsModel
 import com.johnfneto.rocketlaunchfeed.services.LaunchApi
 import com.johnfneto.rocketlaunchfeed.services.Service
@@ -20,12 +21,34 @@ class LaunchViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     callBack.onSuccess(response.body()!!)
+
                 } else {
                     callBack.onError("")
                 }
             }
 
             override fun onFailure(call: Call<ResultsModel>, t: Throwable) {
+                callBack.onError(t.message!!)
+            }
+        })
+    }
+
+    fun getLaunchDetail(id: String, callBack: OnDetailCallback) {
+
+        launchApi.getLaunchDetail(id, "json").enqueue(object : Callback<LaunchDetailModel> {
+            override fun onResponse(
+                call: Call<LaunchDetailModel>,
+                response: Response<LaunchDetailModel>
+            ) {
+                if (response.isSuccessful) {
+                    callBack.onSuccess(response.body()!!)
+
+                } else {
+                    callBack.onError("")
+                }
+            }
+
+            override fun onFailure(call: Call<LaunchDetailModel>, t: Throwable) {
                 callBack.onError(t.message!!)
             }
         })

@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.johnfneto.rocketlaunchfeed.*
 import com.johnfneto.rocketlaunchfeed.LaunchesData.launchesList
 import com.johnfneto.rocketlaunchfeed.databinding.ActivityItemListBinding
+import com.johnfneto.rocketlaunchfeed.models.LaunchDetailModel
 import com.johnfneto.rocketlaunchfeed.models.ResultsModel
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -69,6 +70,35 @@ class LaunchListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
         launchesList.clear()
         results?.let { launchesList.addAll(it) }
         item_list.adapter?.notifyDataSetChanged()
+
+        launchesList.forEach {launch ->
+            viewModel.getLaunchDetail(launch.id!!, object : OnDetailCallback {
+                override fun onSuccess(launchDetailModel: LaunchDetailModel) {
+                    updateDetail(launchDetailModel)
+                }
+
+                override fun onError(error: String) {
+                    binding.frameLayout.swipe_container.isRefreshing = false
+                    Toast.makeText(
+                        this@LaunchListActivity,
+                        R.string.error_msg,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        }
+
+    }
+
+    private fun updateDetail(launchDetail: LaunchDetailModel) {
+        launchesList.find { launch ->
+
+            launch.id == launchDetail.id
+        }?.let{
+            it.img_url = launchDetail.rocket?.configuration?.image_url
+        }
+
+        item_list.adapter?.notifyDataSetChanged()
     }
 
     private fun callServer() {
@@ -97,7 +127,6 @@ class LaunchListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
             ).show()
         }
     }
-
 
     override fun onRefresh() {
         callServer()

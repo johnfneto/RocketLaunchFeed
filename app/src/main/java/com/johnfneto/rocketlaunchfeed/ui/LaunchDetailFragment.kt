@@ -38,7 +38,7 @@ class LaunchDetailFragment : Fragment() {
 
         item?.let {
             binding.launch = it
-            Picasso.get().load(it.image_url).placeholder(R.drawable.ic_launcher_foreground).into(binding.ivLaunch)
+            Picasso.get().load(it.img_url).placeholder(R.drawable.ic_launcher_foreground).into(binding.ivLaunch)
         }
 
         return binding.root

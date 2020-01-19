@@ -9,75 +9,76 @@
         <variable
             name="launch"
             type="com.johnfneto.rocketlaunchfeed.models.LaunchModel" />
-
-        <variable
-            name="ofInterest"
-            type="Boolean" />
     </data>
 
-    <LinearLayout
-
-        android:id="@+id/launch_detail"
-        style="?android:attr/textAppearanceLarge"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/layout_margin"
-        android:textIsSelectable="true"
-        tools:context=".ui.LaunchDetailFragment"
-        android:orientation="vertical" >
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivLaunch"
+        <LinearLayout
+            android:id="@+id/launch_detail"
+            style="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="matrix" />
+            android:layout_height="match_parent"
+            android:padding="@dimen/layout_margin"
+            android:textIsSelectable="true"
+            tools:context=".ui.LaunchDetailFragment"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_layout_margin"
-            android:gravity="center|start"
-            android:text="@{launch.name}"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/ivLaunch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/tvLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_layout_margin"
-            android:gravity="start"
-            android:text="@{launch.pad.location.name}"
-            android:textSize="@dimen/text_size"/>
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_layout_margin"
+                android:gravity="center|start"
+                android:text="@{launch.name}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_layout_margin"
-            android:gravity="start"
-            android:text="@{launch.status.name}"
-            android:textSize="@dimen/text_size"/>
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_layout_margin"
+                android:gravity="start"
+                android:text="@{launch.pad.location.name}"
+                android:textSize="@dimen/text_size"/>
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_layout_margin"
-            android:gravity="start"
-            android:text="@{Utils.formatDate(launch.net)}"
-            android:textSize="@dimen/text_size"/>
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_layout_margin"
+                android:gravity="start"
+                android:text="@{launch.status.name}"
+                android:textSize="@dimen/text_size"/>
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_layout_margin"
-            android:gravity="start"
-            android:text="@{launch.mission.description}"
-            android:textSize="@dimen/text_size"/>
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_layout_margin"
+                android:gravity="start"
+                android:text="@{Utils.formatDate(launch.net)}"
+                android:textSize="@dimen/text_size"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_layout_margin"
+                android:gravity="start"
+                android:text="@{launch.mission.description}"
+                android:textSize="@dimen/text_size"/>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

@@ -2,6 +2,7 @@ package com.johnfneto.rocketlaunchfeed
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class LaunchAdapter(
     private val twoPane: Boolean
 )
     : RecyclerView.Adapter<LaunchAdapter.DataBindingViewHolder>() {
+    private val TAG = javaClass.simpleName
 
     private lateinit var binding: LaunchItemBinding
     private val onClickListener: View.OnClickListener
@@ -37,7 +39,8 @@ class LaunchAdapter(
                     .beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit()
-            } else {
+            }
+            else {
                 val intent = Intent(v.context, LaunchDetailActivity::class.java).apply {
                     putExtra(LaunchDetailFragment.ARG_ITEM_ID, item)
                 }
@@ -69,9 +72,13 @@ class LaunchAdapter(
         fun bind(item: LaunchModel) {
             binding.apply {
                 launch = item
+
                 ofInterest = item.pad!!.location!!.country_code == "RUS" || item.pad.location!!.country_code == "CHN" || item.pad.location.country_code == "UNK"
                 if (!twoPane) {
-                    Picasso.get().load(item.img_url).placeholder(R.drawable.ic_launcher_foreground).into(ivLaunch)
+                    if (!item.img_url.isNullOrEmpty()) {
+                        Picasso.get().load(item.img_url)
+                            .placeholder(R.drawable.ic_launcher_foreground).into(ivLaunch)
+                    }
                 }
             }
         }
